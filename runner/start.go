@@ -1,4 +1,4 @@
-package main
+package runner
 
 import (
 	"context"
@@ -7,11 +7,10 @@ import (
 	"time"
 
 	"github.com/arihantdaga/kiotsundaython/database"
-	"github.com/arihantdaga/kiotsundaython/runner"
 	"github.com/joho/godotenv"
 )
 
-func main() {
+func rundummy() {
 	println("Starting scheduler...")
 	err := godotenv.Load()
 	if err != nil {
@@ -35,18 +34,7 @@ func main() {
 		log.Println("Successfully pinged database")
 	}
 
-	// Runner
-	runner := runner.JobRunnerImpl{}
-	runner.New(dbClient)
-	go runner.Run()
-
-	time.Sleep(time.Second * 10)
-
-	// API Setup
-	// TODO:I think this is not the right way - I think New should return something like a pointer to APIServerImpl.
-	api := APiServerImpl{}
-	api.New(dbClient)
-	api.HandleRoutes()
-	api.Start()
-
+	// runner := JobRunnerImpl{}
+	// runner.New(dbClient)
+	// runner.Run()
 }
