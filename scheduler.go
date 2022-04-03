@@ -33,4 +33,11 @@ func main() {
 		log.Println("Successfully pinged database")
 	}
 	println("Exiting")
+
+	// API Setup
+	// TODO:I think this is not the right way - I think New should return something like a pointer to APIServerImpl.
+	api := APiServerImpl{}
+	api.New(dbClient)
+	api.HandleRoutes()
+	api.Start()
 }
