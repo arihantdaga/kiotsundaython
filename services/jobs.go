@@ -6,6 +6,7 @@ import (
 
 	models "github.com/arihantdaga/kiotsundaython/models"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -15,7 +16,11 @@ func SaveJob(client *mongo.Client, job models.ScheduleJob) (interface{}, error) 
 	collection := client.Database("kiotapp").Collection(jobsCollection)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
+	job.ID = primitive.NewObjectID()
 	res, err := collection.InsertOne(ctx, job)
+	if err != nil {
+		return 0, err
+	}
 	id := res.InsertedID
 	return id, err
 }

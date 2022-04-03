@@ -8,9 +8,9 @@ import (
 
 type ScheduleJob struct {
 	ID        primitive.ObjectID `bson:"_id" json:"_id"`
-	jobtype   string             `bson:"jobtype"`
-	jobMeta   string             `bson:"jobMeta"`
-	jobTime   time.Time          `bson:"jobTime"`
-	jobStatus string             `bson:"jobStatus"`
-	lockedAt  time.Time          `bson:"lockedAt"`
+	JobType   string             `bson:"jobtype"`
+	JobMeta   string             `bson:"jobMeta"`
+	JobTime   time.Time          `bson:"jobTime"`
+	JobStatus string             `bson:"jobStatus"`
+	JockedAt  time.Time          `bson:"lockedAt"`
 }
