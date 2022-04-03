@@ -49,6 +49,7 @@ func FindJobsToBeExecuted(client *mongo.Client, ctx context.Context) ([]models.S
 	var foundJobs []models.ScheduleJob
 	cursor, err := collection.Find(ctx, bson.D{
 		{"jobTime", bson.D{{"$lt", now}}},
+		{"lockedAt", nil},
 	})
 	if err != nil {
 		return nil, err
@@ -57,6 +58,10 @@ func FindJobsToBeExecuted(client *mongo.Client, ctx context.Context) ([]models.S
 		return nil, err
 	}
 	return foundJobs, nil
+}
+
+func UpdateJobStatus(client *mongo.Client, ctx context.Context, jobId string, status string) error {
+	return nil
 }
 
 func LockJobs(client *mongo.Client, ctx context.Context, jobIds []primitive.ObjectID) error {

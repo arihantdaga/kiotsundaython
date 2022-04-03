@@ -36,11 +36,12 @@ func main() {
 	}
 
 	// Runner
+	runnerDie := make(chan string, 1)
 	runner := runner.JobRunnerImpl{}
 	runner.New(dbClient)
-	go runner.Run()
+	go runner.Run(runnerDie)
 
-	time.Sleep(time.Second * 10)
+	// time.Sleep(time.Second * 10)
 
 	// API Setup
 	// TODO:I think this is not the right way - I think New should return something like a pointer to APIServerImpl.
@@ -49,4 +50,5 @@ func main() {
 	api.HandleRoutes()
 	api.Start()
 
+	print(<-runnerDie)
 }
